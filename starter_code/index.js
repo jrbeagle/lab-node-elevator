@@ -14,4 +14,4 @@ elevator.call(mary);
 elevator.call(john);
 elevator.call(sarah);
 elevator.call(thomas);
-elevator.call(jamal);
+//elevator.call(jamal);

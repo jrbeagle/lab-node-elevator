@@ -28,6 +28,7 @@ class Elevator {
       this.stop();
     }
     else {
+
       if(this.floor < this.requests[0]) {
         this.direction = 'Up';
         this.floorUp();
@@ -40,29 +41,33 @@ class Elevator {
       this.log();
 
       this.waitingList.forEach((person, i)=>{
-
         if(this.floor === person.originFloor) {
-          this.requests.splice(i,1);
-          this.requests.push(person.destinationFloor);
-          this.waitingList.splice(i, 1);
-          this.passengers.push(person);
-          console.log(`${person.name} has entered the elevator`);
+          this._passengersEnter(person, i);
         }
       });
-      this.passengers.forEach((person, i)=>{
 
+      this.passengers.forEach((person, i)=>{
         if(this.floor === person.destinationFloor) {
-          console.log(`${person.name} has left the elevator`);
-          this.requests.splice(i,1);
-          this.passengers.splice(i, 1);
+          this._passengersLeave(person, i);
         }
       });
     }
+
   }
 
-  _passengersEnter() { }
+  _passengersEnter(person, i) {
+    this.requests.splice(i, 1);
+    this.requests.push(person.destinationFloor);
+    this.waitingList.splice(i, 1);
+    this.passengers.push(person);
+    console.log(`${person.name} has entered the elevator`);
+   }
 
-  _passengersLeave() { }
+  _passengersLeave(person, i) {
+    this.requests.splice(i, 1);
+    console.log(`${person.name} has left the elevator`);
+    this.passengers.splice(i, 1);
+   }
 
   floorUp() {
     this.direction = 'Up';
